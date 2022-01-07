@@ -39,6 +39,7 @@ for param in conv_4_3.parameters():
 # The other elements are itermediate images at time t, where t is between 0 and 1
 # Total of 500 epochs per authors
 for epoch in range(500):
+  #### Each Image Pair: I0, I1 ####
   for trainIndex, trainDataList in enumerate(trainDataLoader):
     I0 = trainDataList[0].to(device)
     I1 = trainDataList[-1].to(device)
@@ -87,8 +88,10 @@ for epoch in range(500):
     ls = ls01+ls10
     # Total Loss
     loss = 0.8*lr+0.005*lp+0.4*lw+ls
+    #### End of Loss Calculation for each pair of I0 and I1 ####
 
     #BackProp
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
+    #### End of Each Image Pair: I0, I1 ####
